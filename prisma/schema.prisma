@@ -1,0 +1,144 @@
+generator photon {
+  provider = "photonjs"
+}
+
+datasource sqlite {
+  url      = "file:data.db"
+  provider = "sqlite"
+}
+
+// 文件表设计
+model File {
+  id                  Int                 @id
+
+  // 基本信息
+
+  // 文件名
+  name                String
+
+  // 文件别名
+  alias               String?
+
+  // 文件类型
+  contentType         String
+
+  // 云文件UUID
+  eTag                String
+
+  // 文件大小
+  size                Int
+
+  // 文件链接
+  url                 String
+
+  // 创建时间
+  createdAt           DateTime            @default(now())
+
+  // 更新时间
+  updatedAt           DateTime            @updatedAt
+
+  // 关系
+
+  // 用户头像(1:1)
+  user                User?               @relation(name: "UserAvatar")
+
+  // 知识的图片(1:n)
+  document           Document?          @relation(name: "DocumentFiles")
+}
+
+// 用户表设计
+model User {
+  id                  Int                 @id
+
+  // 基本信息
+
+  // 唯一标示
+  unionId             String              @unique
+
+  // 用户名
+  name                String              @unique
+
+  // 密码
+  password            String?
+
+  // 手机
+  phone               String?             @unique
+
+  // 昵称
+  alias               String?
+
+  // 性别
+  sex                 Sex?
+
+  // 简介
+  desc                String?
+
+  // 创建时间
+  createdAt           DateTime            @default(now())
+
+  // 更新时间
+  updatedAt           DateTime            @updatedAt
+
+  // 关系
+
+  // 用户头像(1:1)
+  avatar              File?               @relation(references: [id], name: "UserAvatar", onDelete: CASCADE)
+
+  // 我发布的知识(n:1)
+  documents          Document[]         @relation(name: "UserPublishDocuments")
+
+  // 收藏的知识(n:n)
+  documentsCollected Document[]         @relation(name: "UsersCollectDocuments")
+}
+
+// 知识
+model Document {
+  id                  Int                 @id
+
+  // 基本信息
+
+  // 是否公开访问
+  isPublic            Boolean             @default(true)
+
+  // 标题
+  subject             String
+
+  // 文档内容(html)
+  content             String?
+
+  // 文档内容Raw格式
+  contentRaw          String?
+
+  // 草稿内容(Raw格式)
+  draft               String?
+
+  // 点赞
+  likeCount           Int                 @default(50)
+
+  // 阅读量
+  readCount           Int                 @default(100)
+
+  // 创建时间
+  createdAt           DateTime            @default(now())
+
+  // 更新时间
+  updatedAt           DateTime            @updatedAt
+
+  // 关系
+
+  // 发布者(1:n)
+  author              User?               @relation(name: "UserPublishDocuments")
+
+  // 文档文件库（图片、视频）- (n:1)
+  files               File[]              @relation(name: "DocumentFiles", onDelete: CASCADE)
+
+  // 文档收藏者(n:n)
+  collectors          User[]              @relation(name: "UsersCollectDocuments")
+}
+
+enum Sex {
+  // 男
+  MALE
+  // 女
+  FEMALE
+}
