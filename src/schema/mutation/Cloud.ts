@@ -40,7 +40,7 @@ export function Cloud(t: ObjectDefinitionBlock<"Mutation">) {
 			// 将文件更新到 doc 的媒体列表里
 			return ctx.photon.files.create({
 				data: {
-					id: randomString(10, true),
+					id: randomString(7, true),
 					name,
 					contentType,
 					eTag,

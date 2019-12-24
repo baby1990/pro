@@ -35,7 +35,7 @@ export function Auth(t: ObjectDefinitionBlock<"Mutation">) {
 			// 使用新密码注册用户
 			const user = await context.photon.users.create({
 				data: {
-					id: randomString(10, true),
+					id: randomString(7, true),
 					password: passwordEncoded,
 					name,
 					alias,

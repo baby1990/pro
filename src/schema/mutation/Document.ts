@@ -100,7 +100,7 @@ export function Document(t: ObjectDefinitionBlock<"Mutation">) {
 				if (isPublish) {
 					const res = await ctx.photon.documents.create({
 						data: {
-							id: randomString(10, true),
+							id: randomString(7, true),
 							subject,
 							draft: '',
 							content,
@@ -124,7 +124,7 @@ export function Document(t: ObjectDefinitionBlock<"Mutation">) {
 
 				const res = await ctx.photon.documents.create({
 					data: {
-						id: randomString(10, true),
+						id: randomString(7, true),
 						subject,
 						draft: draft,
 						contentRaw: contentRaw,
