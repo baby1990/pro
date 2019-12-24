@@ -31,9 +31,9 @@ module.exports = {
             user: 'root',
             host: '101.37.30.134',
             ref: 'origin/master',
-            repo: 'git@git.iflytek.com:hdyl_lingxi_server/lx-doc.git', /* ssh://root@47.96.86.34 服务器仓库地址*/
+            repo: 'git@github.com:baby1990/pro.git', /* ssh://root@47.96.86.34 服务器仓库地址*/
             path: '/root/apps/program', /*  应用文件存放地址  */
-            'post-deploy': 'cd service && npm install && pm2 reload ecosystem.config.js --env production'
+            'post-deploy': 'npm install && prisma2 lift save && prisma2 lift up && prisma2 generate && cd src && pm2 reload ecosystem.config.js --env production'
         },
     }
 };

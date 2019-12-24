@@ -40,7 +40,6 @@ type Document {
   likeCount: Int!
   readCount: Int!
   subject: String!
-  tags: [String!]!
   updatedAt: DateTime!
 }
 
@@ -59,10 +58,6 @@ input DocumentCreateOneWithoutDocumentInput {
   create: DocumentCreateWithoutFilesInput
 }
 
-input DocumentCreatetagsInput {
-  set: [String!]
-}
-
 input DocumentCreateWithoutAuthorInput {
   collectors: UserCreateManyWithoutCollectorsInput
   content: String
@@ -74,7 +69,6 @@ input DocumentCreateWithoutAuthorInput {
   likeCount: Int
   readCount: Int
   subject: String!
-  tags: DocumentCreatetagsInput
   updatedAt: DateTime
 }
 
@@ -89,7 +83,6 @@ input DocumentCreateWithoutCollectorsInput {
   likeCount: Int
   readCount: Int
   subject: String!
-  tags: DocumentCreatetagsInput
   updatedAt: DateTime
 }
 
@@ -104,7 +97,6 @@ input DocumentCreateWithoutFilesInput {
   likeCount: Int
   readCount: Int
   subject: String!
-  tags: DocumentCreatetagsInput
   updatedAt: DateTime
 }
 
@@ -252,7 +244,7 @@ type Mutation {
   deleteDocument(id: Int!): Document!
   documentCollect(id: Int!): Document!
   documentLike(id: Int!): Document!
-  documentPublish(content: String!, contentRaw: String!, draft: String, id: Int, isPublish: Boolean!, subject: String!, tags: [String!]): Document!
+  documentPublish(content: String!, contentRaw: String!, draft: String, id: Int, isPublish: Boolean!, subject: String!): Document!
   getOSSPolicy: OSSPolicy!
   login(name: String!, password: String!): AuthPayload!
   signup(alias: String, name: String!, password: String!): AuthPayload!
@@ -292,7 +284,7 @@ type Query {
   documents(after: Int, before: Int, first: Int, last: Int, orderBy: DocumentOrderByInput, skip: Int, where: DocumentWhereInput): [Document!]!
   file(where: FileWhereUniqueInput!): File
   files(after: Int, before: Int, first: Int, last: Int, skip: Int): [File!]!
-  me: User!
+  me: User
   user(where: UserWhereUniqueInput!): User
   users(after: Int, before: Int, first: Int, last: Int, skip: Int): [User!]!
 }
@@ -326,7 +318,6 @@ type User {
   id: Int!
   name: String!
   phone: String
-  roles: [UserRole!]!
   sex: Sex
   updatedAt: DateTime!
 }
@@ -341,7 +332,6 @@ input UserCreateInput {
   name: String!
   password: String
   phone: String
-  roles: UserCreaterolesInput
   sex: Sex
   unionId: String!
   updatedAt: DateTime
@@ -362,10 +352,6 @@ input UserCreateOneWithoutUserInput {
   create: UserCreateWithoutAvatarInput
 }
 
-input UserCreaterolesInput {
-  set: [UserRole!]
-}
-
 input UserCreateWithoutAvatarInput {
   alias: String
   createdAt: DateTime
@@ -375,7 +361,6 @@ input UserCreateWithoutAvatarInput {
   name: String!
   password: String
   phone: String
-  roles: UserCreaterolesInput
   sex: Sex
   unionId: String!
   updatedAt: DateTime
@@ -390,7 +375,6 @@ input UserCreateWithoutDocumentsCollectedInput {
   name: String!
   password: String
   phone: String
-  roles: UserCreaterolesInput
   sex: Sex
   unionId: String!
   updatedAt: DateTime
@@ -405,7 +389,6 @@ input UserCreateWithoutDocumentsInput {
   name: String!
   password: String
   phone: String
-  roles: UserCreaterolesInput
   sex: Sex
   unionId: String!
   updatedAt: DateTime
@@ -428,12 +411,6 @@ input UserOrderByInput {
   sex: OrderByArg
   unionId: OrderByArg
   updatedAt: OrderByArg
-}
-
-enum UserRole {
-  ADMIN
-  MANAGER
-  NORMAL
 }
 
 input UserWhereInput {

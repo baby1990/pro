@@ -2,9 +2,15 @@
   "name": "script",
   "license": "MIT",
   "scripts": {
+    "server": "node dist/server",
     "start": "ts-node-dev --no-notify --respawn --transpileOnly ./src",
     "seed": "ts-node prisma/seed.ts",
-    "gen": "prisma2 generate"
+    "gen": "prisma2 generate",
+    "clean": "rm -rf dist",
+    "build": "npm -s run clean && npm -s run generate && tsc",
+    "generate": "npm -s run generate:prisma && npm -s run generate:nexus",
+    "generate:prisma": "prisma2 generate",
+    "generate:nexus": "ts-node --transpile-only ./src"
   },
   "dependencies": {
     "@alicloud/sms-sdk": "^1.1.6",

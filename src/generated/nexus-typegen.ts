@@ -57,7 +57,6 @@ export interface NexusGenInputs {
     likeCount?: number | null; // Int
     readCount?: number | null; // Int
     subject: string; // String!
-    tags?: NexusGenInputs['DocumentCreatetagsInput'] | null; // DocumentCreatetagsInput
     updatedAt?: any | null; // DateTime
   }
   DocumentCreateWithoutCollectorsInput: { // input type
@@ -71,7 +70,6 @@ export interface NexusGenInputs {
     likeCount?: number | null; // Int
     readCount?: number | null; // Int
     subject: string; // String!
-    tags?: NexusGenInputs['DocumentCreatetagsInput'] | null; // DocumentCreatetagsInput
     updatedAt?: any | null; // DateTime
   }
   DocumentCreateWithoutFilesInput: { // input type
@@ -85,11 +83,7 @@ export interface NexusGenInputs {
     likeCount?: number | null; // Int
     readCount?: number | null; // Int
     subject: string; // String!
-    tags?: NexusGenInputs['DocumentCreatetagsInput'] | null; // DocumentCreatetagsInput
     updatedAt?: any | null; // DateTime
-  }
-  DocumentCreatetagsInput: { // input type
-    set?: string[] | null; // [String!]
   }
   DocumentFilter: { // input type
     every?: NexusGenInputs['DocumentWhereInput'] | null; // DocumentWhereInput
@@ -236,7 +230,6 @@ export interface NexusGenInputs {
     name: string; // String!
     password?: string | null; // String
     phone?: string | null; // String
-    roles?: NexusGenInputs['UserCreaterolesInput'] | null; // UserCreaterolesInput
     sex?: NexusGenEnums['Sex'] | null; // Sex
     unionId: string; // String!
     updatedAt?: any | null; // DateTime
@@ -262,7 +255,6 @@ export interface NexusGenInputs {
     name: string; // String!
     password?: string | null; // String
     phone?: string | null; // String
-    roles?: NexusGenInputs['UserCreaterolesInput'] | null; // UserCreaterolesInput
     sex?: NexusGenEnums['Sex'] | null; // Sex
     unionId: string; // String!
     updatedAt?: any | null; // DateTime
@@ -276,7 +268,6 @@ export interface NexusGenInputs {
     name: string; // String!
     password?: string | null; // String
     phone?: string | null; // String
-    roles?: NexusGenInputs['UserCreaterolesInput'] | null; // UserCreaterolesInput
     sex?: NexusGenEnums['Sex'] | null; // Sex
     unionId: string; // String!
     updatedAt?: any | null; // DateTime
@@ -290,13 +281,9 @@ export interface NexusGenInputs {
     name: string; // String!
     password?: string | null; // String
     phone?: string | null; // String
-    roles?: NexusGenInputs['UserCreaterolesInput'] | null; // UserCreaterolesInput
     sex?: NexusGenEnums['Sex'] | null; // Sex
     unionId: string; // String!
     updatedAt?: any | null; // DateTime
-  }
-  UserCreaterolesInput: { // input type
-    set?: NexusGenEnums['UserRole'][] | null; // [UserRole!]
   }
   UserFilter: { // input type
     every?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
@@ -344,7 +331,6 @@ export interface NexusGenInputs {
 export interface NexusGenEnums {
   OrderByArg: photon.OrderByArg
   Sex: photon.Sex
-  UserRole: photon.UserRole
 }
 
 export interface NexusGenRootTypes {
@@ -386,7 +372,6 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   DocumentCreateWithoutAuthorInput: NexusGenInputs['DocumentCreateWithoutAuthorInput'];
   DocumentCreateWithoutCollectorsInput: NexusGenInputs['DocumentCreateWithoutCollectorsInput'];
   DocumentCreateWithoutFilesInput: NexusGenInputs['DocumentCreateWithoutFilesInput'];
-  DocumentCreatetagsInput: NexusGenInputs['DocumentCreatetagsInput'];
   DocumentFilter: NexusGenInputs['DocumentFilter'];
   DocumentOrderByInput: NexusGenInputs['DocumentOrderByInput'];
   DocumentWhereInput: NexusGenInputs['DocumentWhereInput'];
@@ -409,14 +394,12 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   UserCreateWithoutAvatarInput: NexusGenInputs['UserCreateWithoutAvatarInput'];
   UserCreateWithoutDocumentsCollectedInput: NexusGenInputs['UserCreateWithoutDocumentsCollectedInput'];
   UserCreateWithoutDocumentsInput: NexusGenInputs['UserCreateWithoutDocumentsInput'];
-  UserCreaterolesInput: NexusGenInputs['UserCreaterolesInput'];
   UserFilter: NexusGenInputs['UserFilter'];
   UserOrderByInput: NexusGenInputs['UserOrderByInput'];
   UserWhereInput: NexusGenInputs['UserWhereInput'];
   UserWhereUniqueInput: NexusGenInputs['UserWhereUniqueInput'];
   OrderByArg: NexusGenEnums['OrderByArg'];
   Sex: NexusGenEnums['Sex'];
-  UserRole: NexusGenEnums['UserRole'];
 }
 
 export interface NexusGenFieldTypes {
@@ -439,7 +422,6 @@ export interface NexusGenFieldTypes {
     likeCount: number; // Int!
     readCount: number; // Int!
     subject: string; // String!
-    tags: string[]; // [String!]!
     updatedAt: any; // DateTime!
   }
   File: { // field return type
@@ -481,7 +463,7 @@ export interface NexusGenFieldTypes {
     documents: NexusGenRootTypes['Document'][]; // [Document!]!
     file: NexusGenRootTypes['File'] | null; // File
     files: NexusGenRootTypes['File'][]; // [File!]!
-    me: NexusGenRootTypes['User']; // User!
+    me: NexusGenRootTypes['User'] | null; // User
     user: NexusGenRootTypes['User'] | null; // User
     users: NexusGenRootTypes['User'][]; // [User!]!
   }
@@ -495,7 +477,6 @@ export interface NexusGenFieldTypes {
     id: number; // Int!
     name: string; // String!
     phone: string | null; // String
-    roles: NexusGenEnums['UserRole'][]; // [UserRole!]!
     sex: NexusGenEnums['Sex'] | null; // Sex
     updatedAt: any; // DateTime!
   }
@@ -540,7 +521,6 @@ export interface NexusGenArgTypes {
       id?: number | null; // Int
       isPublish: boolean; // Boolean!
       subject: string; // String!
-      tags?: string[] | null; // [String!]
     }
     login: { // args
       name: string; // String!
@@ -623,9 +603,9 @@ export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames = "AuthPayload" | "Document" | "File" | "MsgData" | "Mutation" | "OSSPolicy" | "Query" | "User";
 
-export type NexusGenInputNames = "BooleanFilter" | "DateTimeFilter" | "DocumentCreateManyWithoutDocumentsCollectedInput" | "DocumentCreateManyWithoutDocumentsInput" | "DocumentCreateOneWithoutDocumentInput" | "DocumentCreateWithoutAuthorInput" | "DocumentCreateWithoutCollectorsInput" | "DocumentCreateWithoutFilesInput" | "DocumentCreatetagsInput" | "DocumentFilter" | "DocumentOrderByInput" | "DocumentWhereInput" | "DocumentWhereUniqueInput" | "FileCreateManyWithoutFilesInput" | "FileCreateOneWithoutAvatarInput" | "FileCreateWithoutDocumentInput" | "FileCreateWithoutUserInput" | "FileFilter" | "FileInputType" | "FileWhereInput" | "FileWhereUniqueInput" | "IntFilter" | "NullableStringFilter" | "StringFilter" | "UserCreateInput" | "UserCreateManyWithoutCollectorsInput" | "UserCreateOneWithoutAuthorInput" | "UserCreateOneWithoutUserInput" | "UserCreateWithoutAvatarInput" | "UserCreateWithoutDocumentsCollectedInput" | "UserCreateWithoutDocumentsInput" | "UserCreaterolesInput" | "UserFilter" | "UserOrderByInput" | "UserWhereInput" | "UserWhereUniqueInput";
+export type NexusGenInputNames = "BooleanFilter" | "DateTimeFilter" | "DocumentCreateManyWithoutDocumentsCollectedInput" | "DocumentCreateManyWithoutDocumentsInput" | "DocumentCreateOneWithoutDocumentInput" | "DocumentCreateWithoutAuthorInput" | "DocumentCreateWithoutCollectorsInput" | "DocumentCreateWithoutFilesInput" | "DocumentFilter" | "DocumentOrderByInput" | "DocumentWhereInput" | "DocumentWhereUniqueInput" | "FileCreateManyWithoutFilesInput" | "FileCreateOneWithoutAvatarInput" | "FileCreateWithoutDocumentInput" | "FileCreateWithoutUserInput" | "FileFilter" | "FileInputType" | "FileWhereInput" | "FileWhereUniqueInput" | "IntFilter" | "NullableStringFilter" | "StringFilter" | "UserCreateInput" | "UserCreateManyWithoutCollectorsInput" | "UserCreateOneWithoutAuthorInput" | "UserCreateOneWithoutUserInput" | "UserCreateWithoutAvatarInput" | "UserCreateWithoutDocumentsCollectedInput" | "UserCreateWithoutDocumentsInput" | "UserFilter" | "UserOrderByInput" | "UserWhereInput" | "UserWhereUniqueInput";
 
-export type NexusGenEnumNames = "OrderByArg" | "Sex" | "UserRole";
+export type NexusGenEnumNames = "OrderByArg" | "Sex";
 
 export type NexusGenInterfaceNames = never;
 
