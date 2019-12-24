@@ -1,6 +1,6 @@
 import {ObjectDefinitionBlock} from "nexus/src/definitions/objectType";
 import {arg, stringArg, booleanArg, intArg} from "nexus";
-import {getUserUnionId, randomNum} from "../../util";
+import {getUserUnionId, randomNum, randomString} from "../../util";
 
 
 export function Document(t: ObjectDefinitionBlock<"Mutation">) {
@@ -100,6 +100,7 @@ export function Document(t: ObjectDefinitionBlock<"Mutation">) {
 				if (isPublish) {
 					const res = await ctx.photon.documents.create({
 						data: {
+							id: randomString(10, true),
 							subject,
 							draft: '',
 							content,
@@ -111,7 +112,7 @@ export function Document(t: ObjectDefinitionBlock<"Mutation">) {
 									unionId: userUnionId
 								}
 							},
-						},
+						} as any,
 						select,
 					});
 
@@ -123,6 +124,7 @@ export function Document(t: ObjectDefinitionBlock<"Mutation">) {
 
 				const res = await ctx.photon.documents.create({
 					data: {
+						id: randomString(10, true),
 						subject,
 						draft: draft,
 						contentRaw: contentRaw,
@@ -133,7 +135,7 @@ export function Document(t: ObjectDefinitionBlock<"Mutation">) {
 								unionId: userUnionId
 							}
 						},
-					},
+					} as any,
 					select,
 				});
 

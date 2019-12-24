@@ -1,6 +1,6 @@
 import {ObjectDefinitionBlock} from "nexus/src/definitions/objectType";
 import {arg, stringArg, booleanArg, intArg} from "nexus";
-import {getUserUnionId} from "../../util";
+import {getUserUnionId, randomString} from "../../util";
 import ossClient from "../../cloud/ossClient";
 
 export function Cloud(t: ObjectDefinitionBlock<"Mutation">) {
@@ -8,17 +8,18 @@ export function Cloud(t: ObjectDefinitionBlock<"Mutation">) {
 	// 获取图片上传临时签名
 	t.field('getOSSPolicy', {
 		type: 'OSSPolicy' as any,
+		nullable: true,
 		resolve: async (_, args, ctx) => {
 			const unionId = getUserUnionId(ctx) || '';
 
-			const user = ctx.photon.users.findOne({where: {unionId}, select: {id: true}})
+			const user = ctx.photon.users.findOne({where: {unionId}, select: {id: true}});
 			if (!user) {
 				throw new Error('当前用户不存在');
 			}
 
 			return ossClient.getResponse();
 		},
-	});
+	} as any);
 
 	// $id: ID!, $name: String!, $contentType: String!, $eTag: String!, $size: Int!, $url: String!
 	t.field('uploadDocFile', {
@@ -39,6 +40,7 @@ export function Cloud(t: ObjectDefinitionBlock<"Mutation">) {
 			// 将文件更新到 doc 的媒体列表里
 			return ctx.photon.files.create({
 				data: {
+					id: randomString(10, true),
 					name,
 					contentType,
 					eTag,
@@ -49,7 +51,7 @@ export function Cloud(t: ObjectDefinitionBlock<"Mutation">) {
 							id
 						}
 					}
-				},
+				} as any,
 			})
 		},
 	});

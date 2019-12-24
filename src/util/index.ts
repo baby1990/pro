@@ -26,12 +26,22 @@ export const randomString = (len = 32, justNum = false) => {
 
 	const maxPos = chars.length;
 
-	let str = '';
+	let str: string | number = '';
 
-	for (let i = 0; i < len; i++) {
+	if (justNum) {
+		str += chars.charAt(Math.round(Math.random() * (maxPos -1)));
+		for (let i = 1; i < len; i++) {
 
-		str += chars.charAt(Math.floor(Math.random() * maxPos));
+			str += chars.charAt(Math.floor(Math.random() * maxPos));
 
+		}
+		str = parseInt(str);
+	} else {
+		for (let i = 0; i < len; i++) {
+
+			str += chars.charAt(Math.floor(Math.random() * maxPos));
+
+		}
 	}
 
 	return str;

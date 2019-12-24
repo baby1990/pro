@@ -4,7 +4,7 @@ import * as jwt from "jsonwebtoken";
 import { hash, compare } from 'bcrypt';
 import uuid from 'uuid/v1';
 import {ObjectDefinitionBlock} from "nexus/src/definitions/objectType";
-import { validatePattern } from '../../util'
+import { validatePattern, randomString } from '../../util'
 
 export function Auth(t: ObjectDefinitionBlock<"Mutation">) {
 
@@ -35,11 +35,12 @@ export function Auth(t: ObjectDefinitionBlock<"Mutation">) {
 			// 使用新密码注册用户
 			const user = await context.photon.users.create({
 				data: {
+					id: randomString(10, true),
 					password: passwordEncoded,
 					name,
 					alias,
 					unionId: uuid(),
-				},
+				} as any,
 			});
 
 			// 返回 {token, user}
